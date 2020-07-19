@@ -35,3 +35,18 @@ func (ms *MinioStore)DeleteAlbum(albumName string) error  {
 	}
 	return nil
 }
+
+func (ms *MinioStore)ListAlbums() (*albums.AlbumList,error)  {
+	bInfo,err := ms.Client.ListBuckets()
+	if err != nil {
+		return nil,err
+	}
+	albumList:=&albums.AlbumList{
+		Items:make([]albums.Album,len(bInfo)),
+	}
+
+	for i:=0;i<len(albumList.Items);i++{
+		albumList.Items[i].Name=bInfo[i].Name
+	}
+	return albumList,nil
+}

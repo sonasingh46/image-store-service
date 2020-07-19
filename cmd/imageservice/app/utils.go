@@ -6,7 +6,11 @@ import (
 )
 
 func NewStoreService() (albums.StoreService,error){
-	mc:=miniostore.NewMinioStoreConfig()
+	mc:=miniostore.NewMinioStoreConfig().
+		WithHostIP("127.0.0.1").
+		WithHostPort("9000").
+		WithAccessKeyID("minioadmin").
+		WithSecret("minioadmin")
 	ms,err:=miniostore.NewMinioStore(mc)
 	if err!=nil{
 		return nil,err

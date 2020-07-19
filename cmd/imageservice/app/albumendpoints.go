@@ -1,6 +1,7 @@
 package app
 
 import (
+	"encoding/json"
 	"github.com/gorilla/mux"
 	"github.com/sonasingh46/image-store-service/pkg/albums"
 	"github.com/sonasingh46/image-store-service/pkg/decoder"
@@ -19,7 +20,7 @@ func createAlbum(w http.ResponseWriter, r *http.Request)  {
 		return
 	}
 
-	album:=albums.Album{}
+	album:=&albums.Album{}
 	err = decoder.DecodeBody(r, album)
 	if err != nil {
 		log.Print("failed to create album",err.Error())
@@ -27,7 +28,7 @@ func createAlbum(w http.ResponseWriter, r *http.Request)  {
 		io.WriteString(w, "failed to create album:"+err.Error())
 		return
 	}
-	err=ss.CreateAlbum(album)
+	err=ss.CreateAlbum(*album)
 	if err != nil {
 		log.Print("failed to create album",err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
@@ -65,4 +66,31 @@ func deleteAlbum(w http.ResponseWriter, r *http.Request)  {
 	}
 	w.WriteHeader(http.StatusOK)
 	io.WriteString(w, "Album deleted successfully")
+}
+
+func listAlbums(w http.ResponseWriter, r *http.Request)  {
+	log.Printf("Album list request received")
+	ss,err:=NewStoreService()
+	if err!=nil{
+		log.Print("failed to list albums",err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		io.WriteString(w, "failed to list album:"+err.Error())
+		return
+	}
+
+	albumList,err:=ss.ListAlbums()
+	if err!=nil{
+		log.Print("failed to list albums",err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		io.WriteString(w, "failed to list album:"+err.Error())
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	err=json.NewEncoder(w).Encode(albumList)
+	if err != nil {
+		log.Print("failed to list albums",err.Error())
+		w.WriteHeader(http.StatusInternalServerError)
+		io.WriteString(w, "failed to delete albums:"+err.Error())
+		return
+	}
 }
