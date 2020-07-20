@@ -29,7 +29,7 @@ func (ms *MinioStore)UploadImage(image albums.Image,albumName string) error  {
 	}
 
 	n, err := ms.Client.PutObject(albumName,
-		fileStat.Name(), file, fileStat.Size(),
+		image.Name, file, fileStat.Size(),
 		minio.PutObjectOptions{ContentType:"application/octet-stream"})
 	if err != nil {
 		return err

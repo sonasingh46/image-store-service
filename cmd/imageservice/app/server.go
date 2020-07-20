@@ -17,6 +17,9 @@ func StartImageService()  {
 	// Endpoint for listing all the albums.
 	r.HandleFunc("/albums", listAlbums).Methods("GET")
 
+	//// Endpoint for creating an album
+	//r.HandleFunc("/upload", uploadFile).Methods("POST")
+
 	// Endpoint for creating an album
 	r.HandleFunc("/albums", createAlbum).Methods("POST")
 	// Endpoint for deleting abum
@@ -29,7 +32,7 @@ func StartImageService()  {
 	r.HandleFunc("/albums/{albumName}/images/{imageName}", getImage).Methods("GET")
 
 	// Endpoint to create an image in an album
-	r.HandleFunc("/albums/{albumName}/images", uploadImage).Methods("POST")
+	r.HandleFunc("/albums/{albumName}/images", uploadFile).Methods("POST")
 
 	// Endpoint to delete an image in an album
 	r.HandleFunc("/albums/{albumName}/images/{imageName}", deleteImage).Methods("DELETE")
