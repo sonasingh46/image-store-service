@@ -11,6 +11,7 @@ type AlbumList struct {
 
 type Image struct {
 	Path string `json:"path"`
+	Name string `json:"name"`
 }
 
 type StoredImage struct {
