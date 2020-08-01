@@ -13,18 +13,18 @@ type MinioStore struct {
 }
 
 // NewMinioStore returns a new instance of minio store
-func NewMinioStore(msc *MinioStoreConfig)(*MinioStore,error)  {
-	endpoint := msc.HostIP+":"+msc.Port
+func NewMinioStore(msc *MinioStoreConfig) (*MinioStore, error) {
+	endpoint := msc.HostIP + ":" + msc.Port
 	accessKeyID := msc.AccessKeyID
 	secretAccessKey := msc.Secret
 	// Initialize minio client object.
 	minioClient, err := minio.New(endpoint, accessKeyID, secretAccessKey, msc.UseSSL)
 	if err != nil {
-		return nil,errors.Errorf("failed to create minio client:{%s}",err.Error())
+		return nil, errors.Errorf("failed to create minio client:{%s}", err.Error())
 	}
 	return &MinioStore{
-		Client:minioClient,
-	},nil
+		Client: minioClient,
+	}, nil
 }
 
 // MinioStoreConfig is the config to bring a new minio store instance
@@ -42,36 +42,36 @@ type MinioStoreConfig struct {
 }
 
 // NewMinioStoreConfig returns an empty MinioStoreConfig isntance.
-func NewMinioStoreConfig()*MinioStoreConfig  {
+func NewMinioStoreConfig() *MinioStoreConfig {
 	return &MinioStoreConfig{}
 }
 
 // WithHostIP sets the host ip in the MinioStoreConfig.
-func (msc *MinioStoreConfig)WithHostIP(hostIP string)*MinioStoreConfig  {
-	msc.HostIP=hostIP
+func (msc *MinioStoreConfig) WithHostIP(hostIP string) *MinioStoreConfig {
+	msc.HostIP = hostIP
 	return msc
 }
 
 // WithHostPort sets the host port in the MinioStoreConfig.
-func (msc *MinioStoreConfig)WithHostPort(port string)*MinioStoreConfig  {
-	msc.Port=port
+func (msc *MinioStoreConfig) WithHostPort(port string) *MinioStoreConfig {
+	msc.Port = port
 	return msc
 }
 
 // WithAccessKeyID sets the access id in the MinioStoreConfig.
-func (msc *MinioStoreConfig)WithAccessKeyID(accessKeyID string)*MinioStoreConfig  {
-	msc.AccessKeyID=accessKeyID
+func (msc *MinioStoreConfig) WithAccessKeyID(accessKeyID string) *MinioStoreConfig {
+	msc.AccessKeyID = accessKeyID
 	return msc
 }
 
 // WithSecret sets the secret in the MinioStoreConfig.
-func (msc *MinioStoreConfig)WithSecret(secret string)*MinioStoreConfig  {
-	msc.Secret=secret
+func (msc *MinioStoreConfig) WithSecret(secret string) *MinioStoreConfig {
+	msc.Secret = secret
 	return msc
 }
 
 // WithSSL sets ssl flag to true.
-func (msc *MinioStoreConfig)WithSSL()*MinioStoreConfig  {
-	msc.UseSSL=true
+func (msc *MinioStoreConfig) WithSSL() *MinioStoreConfig {
+	msc.UseSSL = true
 	return msc
 }
