@@ -14,8 +14,8 @@ func DecodeBody(req *http.Request, out interface{}) error {
 		return err
 	}
 
-	if cType !="application/json"{
-		return fmt.Errorf("Invalid content type:%s",cType)
+	if cType != "application/json" {
+		return fmt.Errorf("Invalid content type:%s", cType)
 	}
 	return DecodeJsonBody(req, out)
 }
@@ -29,9 +29,9 @@ func GetContentType(req *http.Request) (string, error) {
 
 	return req.Header.Get("Content-Type"), nil
 }
+
 // decodeJsonBody is used to decode a JSON request body
 func DecodeJsonBody(req *http.Request, out interface{}) error {
 	dec := json.NewDecoder(req.Body)
 	return dec.Decode(&out)
 }
-

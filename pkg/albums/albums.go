@@ -1,7 +1,7 @@
 package albums
 
 type Album struct {
-	Name string `json:"name"`
+	Name     string `json:"name"`
 	Location string `json:"location"`
 }
 
@@ -16,7 +16,7 @@ type Image struct {
 
 type StoredImage struct {
 	AlbumName string `json:"albumName"`
-	Name string `json:"name"`
+	Name      string `json:"name"`
 }
 
 type StoredImageList struct {
@@ -26,10 +26,9 @@ type StoredImageList struct {
 type StoreService interface {
 	CreateAlbum(album Album) error
 	DeleteAlbum(albumName string) error
-	ListAlbums()(*AlbumList,error)
-	UploadImage(image Image,albumName string) error
-	DeleteImage(imageName,albumName string) error
-	ListImages(albumName string) (*StoredImageList,error)
-	GetImage(imageName,albumName string) (*StoredImage,error)
+	ListAlbums() (*AlbumList, error)
+	UploadImage(image Image, albumName string) error
+	DeleteImage(imageName, albumName string) error
+	ListImages(albumName string) (*StoredImageList, error)
+	GetImage(imageName, albumName string) (*StoredImage, error)
 }
-

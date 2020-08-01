@@ -6,10 +6,7 @@ import (
 	"net/http"
 )
 
-
-
-
-func StartImageService()  {
+func StartImageService() {
 	r := mux.NewRouter()
 	// Endpoint for checking service liveness
 	r.HandleFunc("/healthz", HealthCheckHandler)
@@ -32,11 +29,11 @@ func StartImageService()  {
 	r.HandleFunc("/albums/{albumName}/images/{imageName}", getImage).Methods("GET")
 
 	// Endpoint to create an image in an album
-	r.HandleFunc("/albums/{albumName}/images", uploadFile).Methods("POST")
+	r.HandleFunc("/albums/{albumName}/images", uploadImage).Methods("POST")
 
 	// Endpoint to delete an image in an album
 	r.HandleFunc("/albums/{albumName}/images/{imageName}", deleteImage).Methods("DELETE")
 
 	log.Print("Image service started...")
-	log.Fatal(http.ListenAndServe("localhost:8080", r))
+	log.Fatal(http.ListenAndServe(":8080", r))
 }

@@ -5,15 +5,15 @@ import (
 	"github.com/sonasingh46/image-store-service/pkg/miniostore"
 )
 
-func NewStoreService() (albums.StoreService,error){
-	mc:=miniostore.NewMinioStoreConfig().
+func NewStoreService() (albums.StoreService, error) {
+	mc := miniostore.NewMinioStoreConfig().
 		WithHostIP("127.0.0.1").
 		WithHostPort("9000").
 		WithAccessKeyID("minioadmin").
 		WithSecret("minioadmin")
-	ms,err:=miniostore.NewMinioStore(mc)
-	if err!=nil{
-		return nil,err
+	ms, err := miniostore.NewMinioStore(mc)
+	if err != nil {
+		return nil, err
 	}
-	return ms,nil
+	return ms, nil
 }
